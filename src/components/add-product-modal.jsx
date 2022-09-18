@@ -2,7 +2,15 @@ import {
   useAddProductMutation,
   useGetCategoriesQuery,
 } from "../store/store-service.js";
-import { Modal, TextInput, Button, Select } from "@mantine/core";
+import {
+  Modal,
+  Alert,
+  TextInput,
+  Button,
+  Select,
+  Group,
+  Text,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 
 export const AddProductModal = ({
@@ -52,34 +60,48 @@ export const AddProductModal = ({
   return (
     <Modal
       closeOnClickOutside={false}
-      title="Urun ekle"
+      title="Add a product"
       opened={isProductModalOpen}
       onClose={handleCloseModal}
       size="sm"
       transition="slide-down"
     >
       <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
-        <h3>Add product</h3>
-        <TextInput required label="Title" {...form.getInputProps("title")} />
         <TextInput
+          mt="md"
+          required
+          label="Title"
+          {...form.getInputProps("title")}
+        />
+        <TextInput
+          mt="md"
           required
           label="Description"
           {...form.getInputProps("description")}
         />
-        <TextInput required label="Price" {...form.getInputProps("price")} />
+        <TextInput
+          mt="md"
+          required
+          label="Price"
+          {...form.getInputProps("price")}
+        />
         {/*<TextInput required label="Image" {...form.getInputProps("image")} />*/}
         <Select
+          mt="md"
           data={mapCategories(categories)}
           label="Category"
           {...form.getInputProps("categoryId")}
         />
-        <Button
-          variant="gradient"
-          type="submit"
-          disabled={isLoading}
-        >
-          Add product
-        </Button>
+        {error && (
+          <Alert mt="md" title="Error!" color="red">
+            {error.data.message.join(", ")}
+          </Alert>
+        )}
+        <Group position="right" mt="md">
+          <Button variant="gradient" type="submit" disabled={isLoading}>
+            Add product
+          </Button>
+        </Group>
       </form>
     </Modal>
   );

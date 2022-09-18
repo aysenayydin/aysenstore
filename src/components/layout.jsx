@@ -32,7 +32,25 @@ export const Layout = () => {
         <Navbar width={{ base: 300 }} p="xs">
           <Navbar.Section mt="xs">
             <Link to={`/`}>
-              <UnstyledButton>
+              <UnstyledButton
+                sx={(theme) => ({
+                  display: "block",
+                  width: "100%",
+                  padding: theme.spacing.xs,
+                  borderRadius: theme.radius.sm,
+                  color:
+                    theme.colorScheme === "dark"
+                      ? theme.colors.dark[0]
+                      : theme.black,
+
+                  "&:hover": {
+                    backgroundColor:
+                      theme.colorScheme === "dark"
+                        ? theme.colors.dark[6]
+                        : theme.colors.gray[0],
+                  },
+                })}
+              >
                 <Group>
                   <Avatar size={40} color="blue">
                     🏠
@@ -46,7 +64,25 @@ export const Layout = () => {
           </Navbar.Section>
           <Navbar.Section mt="xs">
             <Link to={`/products`}>
-              <UnstyledButton>
+              <UnstyledButton
+                sx={(theme) => ({
+                  display: "block",
+                  width: "100%",
+                  padding: theme.spacing.xs,
+                  borderRadius: theme.radius.sm,
+                  color:
+                    theme.colorScheme === "dark"
+                      ? theme.colors.dark[0]
+                      : theme.black,
+
+                  "&:hover": {
+                    backgroundColor:
+                      theme.colorScheme === "dark"
+                        ? theme.colors.dark[6]
+                        : theme.colors.gray[0],
+                  },
+                })}
+              >
                 <Group>
                   <Avatar size={40} color="blue">
                     📦
@@ -60,7 +96,25 @@ export const Layout = () => {
           </Navbar.Section>
           <Navbar.Section mt="xs">
             <Link to={`/categories`}>
-              <UnstyledButton>
+              <UnstyledButton
+                sx={(theme) => ({
+                  display: "block",
+                  width: "100%",
+                  padding: theme.spacing.xs,
+                  borderRadius: theme.radius.sm,
+                  color:
+                    theme.colorScheme === "dark"
+                      ? theme.colors.dark[0]
+                      : theme.black,
+
+                  "&:hover": {
+                    backgroundColor:
+                      theme.colorScheme === "dark"
+                        ? theme.colors.dark[6]
+                        : theme.colors.gray[0],
+                  },
+                })}
+              >
                 <Group>
                   <Avatar size={40} color="blue">
                     🗃
@@ -74,7 +128,25 @@ export const Layout = () => {
           </Navbar.Section>
           <Navbar.Section mt="xs">
             <Link to={`/users`}>
-              <UnstyledButton>
+              <UnstyledButton
+                sx={(theme) => ({
+                  display: "block",
+                  width: "100%",
+                  padding: theme.spacing.xs,
+                  borderRadius: theme.radius.sm,
+                  color:
+                    theme.colorScheme === "dark"
+                      ? theme.colors.dark[0]
+                      : theme.black,
+
+                  "&:hover": {
+                    backgroundColor:
+                      theme.colorScheme === "dark"
+                        ? theme.colors.dark[6]
+                        : theme.colors.gray[0],
+                  },
+                })}
+              >
                 <Group>
                   <Avatar size={40} color="blue">
                     👥
@@ -107,10 +179,7 @@ export const Layout = () => {
                 </Button>
               )}
               {token && (
-                <Button
-                  variant="gradient"
-                  onClick={logout}
-                >
+                <Button variant="gradient" onClick={logout}>
                   Logout
                 </Button>
               )}

@@ -1,5 +1,5 @@
 import { useAddCategoryMutation } from "../store/store-service.js";
-import { Modal, TextInput, Button, Select } from "@mantine/core";
+import { Modal, TextInput, Button, Select, Group, Alert } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
 export const AddCategoryModal = ({
@@ -39,17 +39,18 @@ export const AddCategoryModal = ({
       transition="slide-down"
     >
       <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
-        <h3>Add Category</h3>
         <TextInput required label="Name" {...form.getInputProps("name")} />
         <TextInput required label="Image" {...form.getInputProps("image")} />
-        {/*<TextInput required label="Image" {...form.getInputProps("image")} />*/}
-        <Button
-          variant="gradient"
-          type="submit"
-          disabled={isLoading}
-        >
-          Add a Category
-        </Button>
+        {error && (
+          <Alert mt="md" title="Error!" color="red">
+            {error.data.message.join(", ")}
+          </Alert>
+        )}
+        <Group position="right" mt="md">
+          <Button variant="gradient" type="submit" disabled={isLoading}>
+            Add a Category
+          </Button>
+        </Group>
       </form>
     </Modal>
   );

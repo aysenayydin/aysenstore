@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useLazyGetProductsQuery } from "../store/store-service.js";
 import { useEffect } from "react";
-import { Grid, Card } from "@mantine/core";
+import { Grid, Card, Loader, Text } from "@mantine/core";
 
 const Listing = () => {
   const [trigger, { data, error, isLoading }] = useLazyGetProductsQuery();
@@ -16,7 +16,7 @@ const Listing = () => {
   }, [id, trigger]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (error) {
@@ -31,20 +31,20 @@ const Listing = () => {
           data.map((product) => (
             <Grid.Col sm={12} md={6} lg={4} xl={3} key={product.id}>
               <Link to={`/product/${product.id}`} key={product.id}>
-                  <Card shadow="sm" p="lg" withBorder>
-                    <div key={product.id}>
-                      <h3>{product.title}</h3>
-                      <p>{product.description}</p>
-                      <p>${product.price}</p>
-                      <Card.Section>
-                        <img
-                          // src={"https://via.placeholder.com/200x100"}
-                          src={product.images[0]}
-                          alt={product.name}
-                        />
-                      </Card.Section>
-                    </div>
-                  </Card>
+                <Card shadow="sm" p="lg" withBorder>
+                  <div key={product.id}>
+                    <h3>{product.title}</h3>
+                    <p>{product.description}</p>
+                    <p>${product.price}</p>
+                    <Card.Section>
+                      <img
+                        // src={"https://via.placeholder.com/200x100"}
+                        src={product.images[0]}
+                        alt={product.name}
+                      />
+                    </Card.Section>
+                  </div>
+                </Card>
               </Link>
             </Grid.Col>
           ))}

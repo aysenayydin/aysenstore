@@ -1,9 +1,8 @@
 import React from "react";
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, Global } from "@mantine/core";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./store";
-// import "./index.css";
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
 import Listing from "./routes/listing.jsx";
 import Product from "./routes/product.jsx";
@@ -12,6 +11,16 @@ import Index from "./routes/index.jsx";
 import { Products } from "./routes/products.jsx";
 import { Categories } from "./routes/categories";
 import { Users } from "./routes/users.jsx";
+
+function GlobalStyle() {
+  return (
+    <Global
+      styles={(theme) => ({
+        a: { textDecoration: "none" },
+      })}
+    />
+  );
+}
 
 const router = createBrowserRouter([
   {
@@ -36,6 +45,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
   <Provider store={store}>
+    <GlobalStyle />
     <MantineProvider
       withNormalizeCSS
       withDefaultStyles
@@ -43,9 +53,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       theme={{
         colorScheme: "light",
         colors: {
-          // Add your color
           deepBlue: ["#E9EDFC", "#C1CCF6", "#99ABF0" /* ... */],
-          // or replace default theme color
           blue: ["#E9EDFC", "#C1CCF6", "#99ABF0" /* ... */],
         },
 

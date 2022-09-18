@@ -8,12 +8,12 @@ import {
   Group,
   Button,
   PasswordInput,
+  Alert,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useLoginMutation } from "../store/store-service.js";
 
 export const LoginModal = ({ isModalOpen, setIsModalOpen }) => {
-  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const [login, { isLoading: loginLoading, error: loginError }] =
     useLoginMutation();
@@ -29,16 +29,6 @@ export const LoginModal = ({ isModalOpen, setIsModalOpen }) => {
     },
   });
 
-  useEffect(() => {
-    if (loginError) {
-      if (error?.status === 401) {
-        setError("Invalid email or password");
-        return;
-      }
-      setError(loginError);
-    }
-  }, [loginError]);
-
   const handleLogin = (values) => {
     login(values)
       .unwrap()
@@ -51,33 +41,37 @@ export const LoginModal = ({ isModalOpen, setIsModalOpen }) => {
 
   const handleModalClose = () => {
     setIsModalOpen(false);
-    setError("");
     form.reset();
   };
 
   return (
-    <Modal opened={isModalOpen} onClose={handleModalClose} title="Giris yap">
+    <Modal opened={isModalOpen} onClose={handleModalClose} title="Login">
       <Box sx={{ maxWidth: 300 }} mx="auto">
         <form onSubmit={form.onSubmit((values) => handleLogin(values))}>
           <TextInput
+            mt="md"
             withAsterisk
             label="Email"
             placeholder="your@email.com"
             {...form.getInputProps("email")}
           />
           <PasswordInput
+            mt="md"
             placeholder="Password"
             label="Password"
             withAsterisk
             {...form.getInputProps("password")}
           />
-          {error && <div>{error}</div>}
+          {loginError && (
+            <Alert mt="md" title="Error!" color="red">
+              {loginError.data.message.constructor === Array
+                ? loginError.data.message.join(", ")
+                : loginError.data.message}
+            </Alert>
+          )}
           {/*{loginError && <div>{loginError.data.message}</div>}*/}
           <Group position="right" mt="md">
-            <Button
-              variant="gradient"
-              type="submit"
-            >
+            <Button variant="gradient" type="submit">
               Submit
             </Button>
           </Group>

@@ -6,6 +6,7 @@ import {
   Group,
   Button,
   PasswordInput,
+  Alert,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useRegisterMutation } from "../store/store-service.js";
@@ -14,7 +15,6 @@ export const RegisterModal = ({
   isRegisterModalOpen,
   setIsRegisterModalOpen,
 }) => {
-  const [error, setError] = useState("");
   const [register, { isLoading: registerLoading, error: registerError }] =
     useRegisterMutation();
 
@@ -31,14 +31,6 @@ export const RegisterModal = ({
     },
   });
 
-  useEffect(() => {
-    if (registerError) {
-      if (registerError?.status === 400) {
-        setError(registerError.data.message.join(", "));
-      }
-    }
-  }, [registerError]);
-
   const handleRegister = (values) => {
     register({
       ...values,
@@ -54,7 +46,6 @@ export const RegisterModal = ({
 
   const handleModalClose = () => {
     setIsRegisterModalOpen(false);
-    setError("");
     form.reset();
   };
 
@@ -62,30 +53,41 @@ export const RegisterModal = ({
     <Modal
       opened={isRegisterModalOpen}
       onClose={handleModalClose}
-      title="Kayit ol"
+      title="Sign Up"
     >
       <Box sx={{ maxWidth: 300 }} mx="auto">
         <form onSubmit={form.onSubmit((values) => handleRegister(values))}>
           <TextInput
+            mt="md"
             withAsterisk
             label="Name"
             {...form.getInputProps("name")}
           />
           <TextInput
+            mt="md"
             withAsterisk
             label="Email"
             placeholder="your@email.com"
             {...form.getInputProps("email")}
           />
           <PasswordInput
+            mt="md"
             placeholder="Password"
             label="Password"
             withAsterisk
             {...form.getInputProps("password")}
           />
-          {error && <div>{error}</div>}
+          {registerError && (
+            <Alert mt="md" title="Error!" color="red">
+              {registerError.data.message.constructor === Array
+                ? registerError.data.message.join(", ")
+                : registerError.data.message}
+            </Alert>
+          )}
           <Group position="right" mt="md">
-            <Button type="submit">Submit</Button>
+            <Button variant="gradient" type="submit">
+              Register
+            </Button>
           </Group>
         </form>
       </Box>

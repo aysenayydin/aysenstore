@@ -1,6 +1,5 @@
 import { useGetAllUsersQuery } from "../store/store-service";
-import { Link } from "react-router-dom";
-import { Grid, Group, Avatar, Loader } from "@mantine/core";
+import { Grid, Group, Avatar, Loader, Text } from "@mantine/core";
 
 export const Users = () => {
   const { data, error, isLoading } = useGetAllUsersQuery();
@@ -28,7 +27,7 @@ export const Users = () => {
               <Avatar>
                 <img src={user.avatar} alt={user.name} />
               </Avatar>
-              <Link to={`/user/${user.id}`}>{user.name}</Link>
+              <Text>{user.name}</Text>
             </Group>
           </Grid.Col>
         ))}

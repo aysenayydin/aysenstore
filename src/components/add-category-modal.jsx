@@ -39,8 +39,8 @@ export const AddCategoryModal = ({
       transition="slide-down"
     >
       <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
-        <TextInput required label="Name" {...form.getInputProps("name")} />
-        <TextInput required label="Image" {...form.getInputProps("image")} />
+        <TextInput mt='md' required label="Name" {...form.getInputProps("name")} />
+        <TextInput mt='md' required label="Image" {...form.getInputProps("image")} />
         {error && (
           <Alert mt="md" title="Error!" color="red">
             {error.data.message.join(", ")}

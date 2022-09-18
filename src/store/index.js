@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { storeApi } from "./store-slice";
+import { storeApi } from "./store-service.js";
 import { authSlice, reHydrateStore } from "./auth-slice";
 import { localStorageMiddleware } from "./auth-slice.js";
 

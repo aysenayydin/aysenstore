@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   useDeleteProductMutation,
   useLazyGetProductQuery,
-} from "../store/store-slice.js";
+} from "../store/store-service.js";
 import { useEffect } from "react";
 import { Button } from "@mantine/core";
 import { useSelector } from "react-redux";
@@ -40,12 +40,14 @@ const Product = () => {
       {data && (
         <>
           {token && (
-            <Button onClick={() => handleDeleteProduct(id)}>Delete Product</Button>
+            <Button variant="gradient" onClick={() => handleDeleteProduct(id)}>
+              Delete Product
+            </Button>
           )}
           <div>
             <h3>{data.title}</h3>
             <p>{data.description}</p>
-            <p>{data.price}</p>
+            <p>${data.price}</p>
             <img
               // src={"https://via.placeholder.com/200x100"}
               src={data.images[0]}

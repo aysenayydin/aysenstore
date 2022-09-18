@@ -1,4 +1,4 @@
-import { useAddCategoryMutation } from "../store/store-slice.js";
+import { useAddCategoryMutation } from "../store/store-service.js";
 import { Modal, TextInput, Button, Select } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
@@ -26,6 +26,7 @@ export const AddCategoryModal = ({
 
   const handleCloseModal = () => {
     setIsCategoryModalOpen(false);
+    form.reset();
   };
 
   return (
@@ -42,7 +43,11 @@ export const AddCategoryModal = ({
         <TextInput required label="Name" {...form.getInputProps("name")} />
         <TextInput required label="Image" {...form.getInputProps("image")} />
         {/*<TextInput required label="Image" {...form.getInputProps("image")} />*/}
-        <Button type="submit" disabled={isLoading}>
+        <Button
+          variant="gradient"
+          type="submit"
+          disabled={isLoading}
+        >
           Add a Category
         </Button>
       </form>

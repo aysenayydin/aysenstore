@@ -1,7 +1,7 @@
 import {
   useAddProductMutation,
   useGetCategoriesQuery,
-} from "../store/store-slice.js";
+} from "../store/store-service.js";
 import { Modal, TextInput, Button, Select } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
@@ -41,6 +41,7 @@ export const AddProductModal = ({
       .then((result) => {
         console.log("result, ", result);
         setIsProductModalOpen(false);
+        form.reset();
       });
   };
 
@@ -72,7 +73,11 @@ export const AddProductModal = ({
           label="Category"
           {...form.getInputProps("categoryId")}
         />
-        <Button type="submit" disabled={isLoading}>
+        <Button
+          variant="gradient"
+          type="submit"
+          disabled={isLoading}
+        >
           Add product
         </Button>
       </form>

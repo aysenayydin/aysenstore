@@ -13,6 +13,9 @@ export const storeApi = createApi({
     getAllProducts: builder.query({
       query: (offset = 0) => `products?offset=${offset}&limit=10`,
     }),
+    getAllUsers: builder.query({
+      query: () => `users`,
+    }),
     getProduct: builder.query({
       query: (id) => `products/${id}`,
     }),
@@ -75,4 +78,5 @@ export const {
   useLazyGetAllProductsQuery,
   useDeleteProductMutation,
   useAddCategoryMutation,
+  useGetAllUsersQuery,
 } = storeApi;

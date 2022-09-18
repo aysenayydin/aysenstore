@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { useLazyGetProductsQuery } from "../store/store-slice.js";
+import { useLazyGetProductsQuery } from "../store/store-service.js";
 import { useEffect } from "react";
 import { Grid, Card } from "@mantine/core";
 

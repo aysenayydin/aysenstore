@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { authActions } from "../store/auth-slice.js";
-import { useDispatch } from "react-redux";
 import {
   Modal,
   Box,
@@ -10,14 +8,13 @@ import {
   PasswordInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useRegisterMutation } from "../store/store-slice.js";
+import { useRegisterMutation } from "../store/store-service.js";
 
 export const RegisterModal = ({
   isRegisterModalOpen,
   setIsRegisterModalOpen,
 }) => {
   const [error, setError] = useState("");
-  const dispatch = useDispatch();
   const [register, { isLoading: registerLoading, error: registerError }] =
     useRegisterMutation();
 
@@ -26,6 +23,7 @@ export const RegisterModal = ({
       name: "",
       email: "",
       password: "",
+      role: "admin",
     },
 
     validate: {

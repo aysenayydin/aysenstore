@@ -10,7 +10,7 @@ import {
   PasswordInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useLoginMutation } from "../store/store-slice.js";
+import { useLoginMutation } from "../store/store-service.js";
 
 export const LoginModal = ({ isModalOpen, setIsModalOpen }) => {
   const [error, setError] = useState("");
@@ -74,7 +74,12 @@ export const LoginModal = ({ isModalOpen, setIsModalOpen }) => {
           {error && <div>{error}</div>}
           {/*{loginError && <div>{loginError.data.message}</div>}*/}
           <Group position="right" mt="md">
-            <Button type="submit">Submit</Button>
+            <Button
+              variant="gradient"
+              type="submit"
+            >
+              Submit
+            </Button>
           </Group>
         </form>
       </Box>

@@ -1,7 +1,15 @@
-import { Grid, Card, Pagination, Center, Button, Select } from "@mantine/core";
+import {
+  Grid,
+  Card,
+  Pagination,
+  Center,
+  Button,
+  Select,
+  Loader,
+} from "@mantine/core";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useLazyGetAllProductsQuery } from "../store/store-slice.js";
+import { useLazyGetAllProductsQuery } from "../store/store-service.js";
 import { useSelector } from "react-redux";
 import { AddProductModal } from "../components/add-product-modal.jsx";
 
@@ -20,7 +28,7 @@ export const Products = () => {
   }, [products, activePage]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (error) {
@@ -37,7 +45,11 @@ export const Products = () => {
         />
         {token && (
           <Grid.Col>
-            <Button onClick={() => setIsProductModalOpen(true)}>
+            <Button
+              variant="gradient"
+              gradient={{ from: "#ed6ea0", to: "#ec8c69", deg: 35 }}
+              onClick={() => setIsProductModalOpen(true)}
+            >
               Add Product
             </Button>
           </Grid.Col>

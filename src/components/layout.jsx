@@ -7,6 +7,7 @@ import {
   Group,
   Text,
   Header,
+  Title,
 } from "@mantine/core";
 import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
@@ -29,68 +30,97 @@ export const Layout = () => {
       padding="md"
       navbar={
         <Navbar width={{ base: 300 }} p="xs">
-          <Link to={`/`}>
-            <UnstyledButton>
-              <Group>
-                <Avatar size={40} color="blue">
-                  🏠
-                </Avatar>
-                <div>
-                  <Text>Home</Text>
-                </div>
-              </Group>
-            </UnstyledButton>
-          </Link>
-          <Link to={`/products`}>
-            <UnstyledButton>
-              <Group>
-                <Avatar size={40} color="blue">
-                  📦
-                </Avatar>
-                <div>
-                  <Text>Products</Text>
-                </div>
-              </Group>
-            </UnstyledButton>
-          </Link>
-          <Link to={`/categories`}>
-          <UnstyledButton>
-            <Group>
-              <Avatar size={40} color="blue">
-                🗃
-              </Avatar>
-              <div>
-                <Text>Categories</Text>
-              </div>
+          <Navbar.Section mt="xs">
+            <Link to={`/`}>
+              <UnstyledButton>
+                <Group>
+                  <Avatar size={40} color="blue">
+                    🏠
+                  </Avatar>
+                  <div>
+                    <Text>Home</Text>
+                  </div>
+                </Group>
+              </UnstyledButton>
+            </Link>
+          </Navbar.Section>
+          <Navbar.Section mt="xs">
+            <Link to={`/products`}>
+              <UnstyledButton>
+                <Group>
+                  <Avatar size={40} color="blue">
+                    📦
+                  </Avatar>
+                  <div>
+                    <Text>Products</Text>
+                  </div>
+                </Group>
+              </UnstyledButton>
+            </Link>
+          </Navbar.Section>
+          <Navbar.Section mt="xs">
+            <Link to={`/categories`}>
+              <UnstyledButton>
+                <Group>
+                  <Avatar size={40} color="blue">
+                    🗃
+                  </Avatar>
+                  <div>
+                    <Text>Categories</Text>
+                  </div>
+                </Group>
+              </UnstyledButton>
+            </Link>
+          </Navbar.Section>
+          <Navbar.Section mt="xs">
+            <Link to={`/users`}>
+              <UnstyledButton>
+                <Group>
+                  <Avatar size={40} color="blue">
+                    👥
+                  </Avatar>
+                  <div>
+                    <Text>Users</Text>
+                  </div>
+                </Group>
+              </UnstyledButton>
+            </Link>
+          </Navbar.Section>
+          <Navbar.Section mt="xs">
+            <Group grow>
+              {!token && (
+                <Button
+                  variant="gradient"
+                  gradient={{ from: "#ed6ea0", to: "#ec8c69", deg: 35 }}
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  Login
+                </Button>
+              )}
+              {!token && (
+                <Button
+                  variant="gradient"
+                  gradient={{ from: "teal", to: "lime", deg: 105 }}
+                  onClick={() => setIsRegisterModalOpen(true)}
+                >
+                  Register
+                </Button>
+              )}
+              {token && (
+                <Button
+                  variant="gradient"
+                  onClick={logout}
+                >
+                  Logout
+                </Button>
+              )}
             </Group>
-          </UnstyledButton>
-        </Link>
-          <UnstyledButton>
-            <Group>
-              <Avatar size={40} color="blue">
-                👥
-              </Avatar>
-              <div>
-                <Text>Users</Text>
-              </div>
-            </Group>
-          </UnstyledButton>
-          <Group>
-            {!token && (
-              <Button onClick={() => setIsModalOpen(true)}>Login</Button>
-            )}
-            {!token && (
-              <Button onClick={() => setIsRegisterModalOpen(true)}>
-                Register
-              </Button>
-            )}
-            {token && <Button onClick={logout}>Logout</Button>}
-          </Group>
+          </Navbar.Section>
         </Navbar>
       }
       header={
         <Header height={60} p="xs">
-          <div>Aysen Store Admin Dashboard</div>
+          <Title variant="gradient">🌕Moon Store Admin Dashboard</Title>
         </Header>
       }
       styles={(theme) => ({

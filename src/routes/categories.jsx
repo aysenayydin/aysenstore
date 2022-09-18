@@ -1,16 +1,16 @@
-import { Grid, Card, Button } from "@mantine/core";
-import { useGetCategoriesQuery } from "../store/store-slice.js";
+import { Grid, Card, Button, Loader } from "@mantine/core";
+import { useGetCategoriesQuery } from "../store/store-service.js";
 import { useState } from "react";
 import { AddCategoryModal } from "../components/add-category-modal";
+import { useSelector } from "react-redux";
 
 export const Categories = () => {
   const { data, error, isLoading } = useGetCategoriesQuery();
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
-
-  console.log("data, ", data);
+  const { token } = useSelector((state) => state.auth);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (error) {
@@ -25,11 +25,16 @@ export const Categories = () => {
       />
       <h1>Categories</h1>
       <Grid gutter="xl">
-        <Grid.Col>
-          <Button onClick={() => setIsCategoryModalOpen(true)}>
-            Add a Category
-          </Button>
-        </Grid.Col>
+        {token && (
+          <Grid.Col>
+            <Button
+              variant="gradient"
+              onClick={() => setIsCategoryModalOpen(true)}
+            >
+              Add a Category
+            </Button>
+          </Grid.Col>
+        )}
         {data &&
           data.map((category) => (
             <Grid.Col sm={12} md={6} lg={4} xl={3} key={category.id}>

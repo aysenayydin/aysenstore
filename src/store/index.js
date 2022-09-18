@@ -1,19 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { storeApi } from "./store-slice";
-import { authSlice } from "./slices/auth-slice";
+import { authSlice, reHydrateStore } from "./auth-slice";
 import { localStorageMiddleware } from "./auth-slice.js";
 
 export const store = configureStore({
   reducer: {
     [storeApi.reducerPath]: storeApi.reducer,
-    auth: authSlice,
+    auth: authSlice.reducer,
   },
+  preloadedState: reHydrateStore(),
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([
+    getDefaultMiddleware().concat(
       storeApi.middleware,
       localStorageMiddleware,
-    ]),
+    ),
 });
 
 setupListeners(store.dispatch);

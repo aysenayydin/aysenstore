@@ -1,9 +1,11 @@
-import "./App.css";
+import { Grid, Card } from "@mantine/core";
+// import "./App.css";
 import {
   useGetCategoriesQuery,
   useLoginMutation,
   useRegisterMutation,
   useGetUserQuery,
+  useAddProductMutation,
 } from "./store/store-slice.js";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
@@ -23,39 +25,31 @@ function App() {
     isLoading: userLoading,
     error: userError,
   } = useGetUserQuery();
+  const [addProduct, { isLoading: addProductLoading, error: addProductError }] =
+    useAddProductMutation();
 
-  console.log("userData, ", userData);
+  // console.log("userData, ", userData);
+  // dispatch(authActions.login({ token: "123" }));
 
-  // useEffect(() => {
-  //   if (!userData) {
-  //
-  //   }
-  // }
+  useEffect(() => {
+    console.log("userData, ", userData);
+    if (!userData) {
+      return;
+    }
+  }, []);
 
-  const handleLogin = () => {
-    login({ email: "nico@gmail.com", password: "123" })
-      .unwrap()
-      .then((result) => {
-        console.log("result, ", result);
-        localStorage.setItem("token", result.access_token);
-      });
-  };
-
-  const registerBtn = () => {
-    register({
-      name: "Nicolas",
-      email: "nico@gmail.com",
-      password: "123",
-      avatar: "https://via.placeholder.com/200x100",
+  const handleAddProduct = () => {
+    addProduct({
+      title: "test",
+      description: "test",
+      categoryId: 2,
+      price: 100,
+      images: ["https://api.lorem.space/image/fashion?w=640&h=480"],
     })
       .unwrap()
       .then((result) => {
         console.log("result, ", result);
       });
-  };
-
-  const logout = () => {
-    localStorage.removeItem("token");
   };
 
   if (isLoading) {
@@ -70,14 +64,20 @@ function App() {
   return (
     <div className="App">
       <h1>Categories</h1>
-      {data.map((category) => (
-        <Link to={`/listing/${category.id}`} key={category.id}>
-          <div>{category.name}</div>
-        </Link>
-      ))}
-      {!userData && <button onClick={handleLogin}>Login</button>}
-      {!userData && <button onClick={registerBtn}>Register</button>}
-      <button onClick={logout}>Logout</button>
+      <Grid gutter="xl">
+        {data.map((category) => (
+          <Grid.Col sm={12} md={6} lg={4} xl={3}>
+            <Link to={`/listing/${category.id}`} key={category.id}>
+              <Card shadow="sm" p="lg" withBorder>
+                <Card.Section>
+                  <img src={category.image} alt={category.name} />
+                </Card.Section>
+                <div>{category.name}</div>
+              </Card>
+            </Link>
+          </Grid.Col>
+        ))}
+      </Grid>
     </div>
   );
 }

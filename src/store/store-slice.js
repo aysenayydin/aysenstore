@@ -8,7 +8,10 @@ export const storeApi = createApi({
       query: () => "categories",
     }),
     getProducts: builder.query({
-      query: (id) => `categories/${id}/products?offset=0&limit=10`,
+      query: (id) => `categories/${id}/products`,
+    }),
+    getAllProducts: builder.query({
+      query: (offset = 0) => `products?offset=${offset}&limit=10`,
     }),
     getProduct: builder.query({
       query: (id) => `products/${id}`,
@@ -32,8 +35,30 @@ export const storeApi = createApi({
         url: "auth/profile",
         method: "GET",
         headers: {
-            authorization: `Bearer ${localStorage.getItem("token")}`,
-        }
+          authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("appState")).auth.token
+          }`,
+        },
+      }),
+    }),
+    addProduct: builder.mutation({
+      query: (body) => ({
+        url: "products",
+        method: "POST",
+        body,
+      }),
+    }),
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `products/${id}`,
+        method: "DELETE",
+      }),
+    }),
+    addCategory: builder.mutation({
+      query: (body) => ({
+        url: "categories",
+        method: "POST",
+        body,
       }),
     }),
   }),
@@ -46,4 +71,8 @@ export const {
   useLoginMutation,
   useRegisterMutation,
   useGetUserQuery,
+  useAddProductMutation,
+  useLazyGetAllProductsQuery,
+  useDeleteProductMutation,
+  useAddCategoryMutation,
 } = storeApi;

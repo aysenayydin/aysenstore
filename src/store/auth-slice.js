@@ -1,4 +1,6 @@
-const authSlice = createSlice({
+import { createSlice } from "@reduxjs/toolkit";
+
+export const authSlice = createSlice({
   name: "auth",
   initialState: {
     token: null,
@@ -16,9 +18,15 @@ const authSlice = createSlice({
 export const localStorageMiddleware = ({ getState }) => {
   return (next) => (action) => {
     const result = next(action);
-    localStorage.setItem("token", getState().auth.token);
+    localStorage.setItem("appState", JSON.stringify(getState()));
     return result;
   };
+};
+
+export const reHydrateStore = () => {
+  if (localStorage.getItem("appState") !== null) {
+    return JSON.parse(localStorage.getItem("appState"));
+  }
 };
 
 export const authActions = authSlice.actions;
